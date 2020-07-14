@@ -1,0 +1,13 @@
+.cont {
+    position: absolute;
+    left:25%;
+    top: 25%;
+    height: 50%;
+    width: 50%;
+    background-color: chocolate;
+    text-align: left;
+}
+
+p {
+    margin-bottom: 0px;
+}

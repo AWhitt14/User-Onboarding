@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './form.css';
 import * as yup from 'yup';
+import axios from 'axios';
+import Input from './Inputs';
 
 
 const Form = props => {
@@ -19,7 +21,7 @@ const Form = props => {
  const personSchema = yup.object().shape({
      name: yup.string().required('please fill in name'),
      email: yup.string().email().required('Please provide a valid email'),
-     password: yup.string().required('please provide a password of at least 8 characters'),
+     password: yup.string().min(8).required('please provide a password of at least 8 characters'),
      terms: yup.boolean().oneOf([true], "Please agree to the terms and conditions")
  });
 
@@ -52,29 +54,42 @@ const Form = props => {
         validateField(e);
     };
 
+    const submitForm = (e) => {
+        e.preventDefault();
+        axios.post(`https://reqres.in/api/users`,newPerson)
+        .then(() => {
+            console.log('form submitted')
+            }
+        )
+        .catch(er => {
+            console.log('there was an error',er);
+        })
+    }
+
+    useEffect(() => {
+        personSchema.isValid(newPerson).then(valid => buttonTog(!valid));
+    }, [newPerson])
+
     return (
-        <div className='cont'>
-            <label htmlFor='name'>
-                <p>Name</p>
-                <input type='text' name='name' value={newPerson.name} onChange={change}/>
-            </label>
-            <label htmlFor='email'>
-                <p>Email</p>
-                <input type='text' name='email' value={newPerson.email} onChange={change}/>
-            </label>
-            <label htmlFor='password'>
-                <p>Password</p>
-                <input type='text' name='password' value={newPerson.password} onChange={change}/>
-            </label>
+      <div>
+        <h1>Bamboozled University</h1>
+        <form onSubmit={submitForm} className='cont'>
+            <h2>Create Account</h2>
+            
+            <Input type='text' label='Name' name='name' value={newPerson.name} onChange={change} errors={errors}/>
+            
+            <Input type='text' label='Email' name='email' value={newPerson.email} onChange={change} errors={errors}/>
+            
+            <Input type='text' label='Password' name='password' value={newPerson.password} onChange={change} errors={errors}/>
+
             <div>
                 <label htmlFor='terms'>
                     <input type='checkbox' name='terms' onChange={change}/> accept terms and conditions.
                 </label>
             </div>
             <button disabled={buttonOff} type='submit'>Submit</button>
- 
-            
-        </div> 
+        </form> 
+      </div>
     )
 }
 

@@ -84,10 +84,10 @@ const Form = props => {
 
             <div>
                 <label htmlFor='terms'>
-                    <input type='checkbox' name='terms' onChange={change}/> accept terms and conditions.
+                    <input type='checkbox' data-cy='term' name='terms' onChange={change}/> accept terms and conditions.
                 </label>
             </div>
-            <button disabled={buttonOff} type='submit'>Submit</button>
+            <button data-cy='submit' disabled={buttonOff} type='submit'>Submit</button>
         </form> 
       </div>
     )

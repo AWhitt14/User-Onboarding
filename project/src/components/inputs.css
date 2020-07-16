@@ -1,0 +1,11 @@
+.boxit {
+    box-sizing: border-box;
+}
+
+.erros {
+    display: block;
+    color: black;
+    width:100%;
+    background-color: brown;
+    font-size: .7rem;
+}

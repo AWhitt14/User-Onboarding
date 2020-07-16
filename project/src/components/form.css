@@ -2,15 +2,16 @@
     position: absolute;
     left:37%;
     top: 25%;
-    height: 60%;
-    width: 25%;
+    height: auto;
+    width: 23%;
     background-color: chocolate;
     border: 2px solid brown;
     text-align: left;
     display: flex;
     flex-flow: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    word-wrap: break-word;
 }
 
 p {
